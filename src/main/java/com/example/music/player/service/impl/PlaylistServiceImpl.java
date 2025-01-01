@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -58,6 +57,22 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .orElseThrow(() -> new ResourceNotFoundException("Song not found with id: " + songId));
 
         playlist.getSongs().add(song);
+        playlistRepository.save(playlist);
+    }
+
+    @Transactional
+    @Override
+    public void removeSongFromPlaylist(Long playlistId, Long songId) {
+        PlaylistEntity playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new ResourceNotFoundException("Playlist not found with id: " + playlistId));
+        SongEntity song = songRepository.findById(songId)
+                .orElseThrow(() -> new ResourceNotFoundException("Song not found with id: " + songId));
+
+        if (!playlist.getSongs().contains(song)) {
+            throw new IllegalStateException("Song with id: " + songId + " is not in the playlist with id: " + playlistId);
+        }
+
+        playlist.getSongs().remove(song);
         playlistRepository.save(playlist);
     }
 
