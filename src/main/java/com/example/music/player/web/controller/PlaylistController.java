@@ -49,4 +49,10 @@ public class PlaylistController {
     public void addSong(@PathVariable Long playlistId, @PathVariable Long songId) {
         playlistService.addSongToPlaylist(playlistId, songId);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSong(@PathVariable Long id) {
+        playlistService.deletePlaylistById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

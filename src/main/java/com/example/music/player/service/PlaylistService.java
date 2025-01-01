@@ -13,4 +13,5 @@ public interface PlaylistService {
     Playlist createPlaylist(PlaylistCreationDto playlist);
     void addSongToPlaylist(Long playlistId, Long songId);
     Set<Song> getSongsByPlaylistId(Long playlistId);
+    void deletePlaylistById(Long id);
 }

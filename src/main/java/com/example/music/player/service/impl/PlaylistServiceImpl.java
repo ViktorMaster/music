@@ -68,4 +68,9 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .orElseThrow(() -> new ResourceNotFoundException("Playlist not found with id: " + playlistId));
         return songMapper.toSong(playlist.getSongs());
     }
+
+    @Override
+    public void deletePlaylistById(Long id) {
+        playlistRepository.deleteById(id);
+    }
 }
