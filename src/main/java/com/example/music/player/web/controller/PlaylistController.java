@@ -45,7 +45,7 @@ public class PlaylistController {
         return ResponseEntity.ok(songMapper.toSongDto(playlistService.getSongsByPlaylistId(id)));
     }
 
-    @PostMapping("/{playlistId}/songs/{songId}")
+    @PutMapping("/{playlistId}/songs/{songId}")
     public void addSong(@PathVariable Long playlistId, @PathVariable Long songId) {
         playlistService.addSongToPlaylist(playlistId, songId);
     }
